@@ -54,7 +54,18 @@ Steps involved in installing arch linux.
 7. exit from chroot and reboot.
 
 
-### others
+### To i3 and beyond.
 
-xrdb -merge .Xdefaults
+```bash
+$ pacman -S xorg-xinit xorg i3
+```
+- chose i3wm 
+- set .xinitrc , i3 configs [ in this repo]
+
+
+```bash
+$ paccman -S rxvt-unicode rxvt-unicode-terminfo 
+# copy .Xdefaults from here.
+$ xrdb -merge .Xdefaults
+```
 
