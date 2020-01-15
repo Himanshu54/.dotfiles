@@ -1,0 +1,9 @@
+[Unit]
+Description=Runs pscircle to continously update desktop wallpaper
+
+[Service]
+Environment=DISPLAY=:0
+ExecStart=/bin/bash -c "while true; do /home/himanshu/.config/systemd/user/picircle_bg.sh ; sleep 30;done"
+
+[Install]
+WantedBy=default.target
