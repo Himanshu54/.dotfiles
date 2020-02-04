@@ -1,3 +1,22 @@
+### local systemd serivice
+
+```bash
+mkdir -p ~/.config/systemd/user/
+
+example.service -- Unit file example
+
+[Unit] -- section . section names are defined and case-sensitive
+Description=Describe the service -- directive
+
+[Service]
+Environment=DISPLAY=:0
+ExecStart=/bin/bash -c "while true; do hello.sh; sleep 30; done"
+
+[Install]
+WantedBy=default.target
+```
+[Reads](https://www.digitalocean.com/community/tutorials/understanding-systemd-units-and-unit-files)
+
 ### I use arch btw.
 
 Steps involved in installing arch linux.
