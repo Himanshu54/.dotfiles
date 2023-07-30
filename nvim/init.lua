@@ -12,7 +12,7 @@ vim.opt.number=true
 -- Remember Section --
 -- Ctrl+v + <no of line >j+ <S-i> commnet <Esc>
 
-
+-- Bindings to enable hardmode on vim, break habits.
 -- https://github.com/dusans/vim-hardmode ported to lua.
 -- TODO: Disable h,j,k,l in normal and visual mode ??
 -- START HARDMODE
