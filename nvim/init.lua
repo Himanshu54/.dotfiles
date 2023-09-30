@@ -39,6 +39,9 @@ require('lazy').setup({
 
       -- Adds LSP completion capabilities
       'hrsh7th/cmp-nvim-lsp',
+
+      -- Adds a number of user-friendly snippets
+      -- 'rafamadriz/friendly-snippets',
     },
   },
   {
@@ -87,7 +90,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'moonfly',
+        theme = 'tokyonight',
         component_separators = '|',
         section_separators = '',
       },
@@ -352,6 +355,14 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
+-- Enable the following language servers
+--  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
+--
+--  Add any additional override configuration in the following tables. They will be passed to
+--  the `settings` field of the server config. You must look up that documentation yourself.
+--
+--  If you want to override the default filetypes that your language server will attach to you can
+--  define the property 'filetypes' to the map in question.
 local servers = {
   -- clangd = {},
  gopls = {
@@ -364,6 +375,17 @@ local servers = {
       },
     },
  },
+  -- pyright = {},
+  -- rust_analyzer = {},
+  -- tsserver = {},
+  -- html = { filetypes = { 'html', 'twig', 'hbs'} },
+
+  -- lua_ls = {
+    -- Lua = {
+      -- workspace = { checkThirdParty = false },
+      -- telemetry = { enable = false },
+    --},
+  -- },
 }
 
 -- Setup neovim lua configuration
@@ -410,10 +432,15 @@ cmp.setup {
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete {},
-    ['<Tab>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    },
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.confirm()
+      elseif luasnip.expand_or_locally_jumpable() then
+        luasnip.expand_or_jump()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
     ['CR'] = cmp.mapping.disable,
     ['<S-Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
